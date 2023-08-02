@@ -8,10 +8,20 @@ const Transfer = db.define("transfers", {
         autoIncrement: true,
         type: DataTypes.INTEGER,
     },
-    date: {
-        define: DataTypes.DATE,
+    amount: { //! CANTIDAD
+        type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    senderUserld: { //! ID USUARIO REMITENTE
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'sender_user_id',
+    },
+    receiverUserld: { //! ID USUARIO RECIBIR
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'receiver_user_id',
     },
 });
 
-module.exports = User;
+module.exports = Transfer;

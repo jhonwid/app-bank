@@ -1,15 +1,23 @@
 //* Importacion
 const express = require('express');
+const morgan = require("morgan");
+const cors = require('cors');
 
-//* Rutas Variables
+//* Rutas 
 const userRoute = require('./routes/user.route');
 const transferRoute = require('./routes/transfer.route');
 
 const app = express();
 
+//*
 app.use(express.json());
+app.use(cors());
 
-//* Rutas
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
+//* Rutas 
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/transfers', transferRoute);
 

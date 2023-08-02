@@ -8,28 +8,27 @@ const User = db.define("users", {
         autoIncrement: true,
         type: DataTypes.INTEGER,
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
+    name: { //! NOMBRE
+        type: DataTypes.STRING(50),
         allowNull: false,
         unique: true,
     },
-    password: {
+    accountNumber: { //! NUMERO DE CUENTA
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    password: { //! CONTRASEÑA
         type: DataTypes.STRING,
         allowNull: false,
     },
-    role: {
-        type: DataTypes.ENUM('client', 'employee'),
+    amount: { //! CANTIDAD
+        type: DataTypes.INTEGER,
         allowNull: false,
-        deleteValue: "client",
     },
-    status: {
-        type: DataTypes.ENUM('available', 'disabled'),
+    status: { //! ESTADO
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: "available",
+        defaultValue: true,
     },
 });
 

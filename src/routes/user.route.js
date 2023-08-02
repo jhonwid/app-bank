@@ -1,20 +1,22 @@
+//* 1. Importacion express
 const express = require('express');
 
-//Controllers
+//* 2. Importacion
 const userController = require('../controllers/user.contoller');
 
 const router = express.Router();
 
+//* Rutas de las funciones asincronas
 router
     .route('/')
-    .get(userCOntroller.findAllUsers)
-    .post(userCOntroller.createUSser);
+    // .post(userController.findAllUsers)
+    .post(userController.singupUser)
+    .post(userController.loginUser);
 
 router
     .route('/:id')
-    .get(userCOntroller.finOneUser)
-    .patch(userCOntroller.updateUser)
-    .delete(userCOntroller.deletedUser);
+    .get(userController.historyUser)
 
-module.exports = userController;
+//* Exportaciones
+module.exports = router;
 
