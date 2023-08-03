@@ -1,63 +1,65 @@
 const User = require('./../models/user.model');
+const bcrypt = require('bcryptjs');
+const generateJWT = require('./../utils/jwt');
 const randomClue = require('./../utils/clueRandom');
 
-//*  SingUp (Creacion de numero de cuenta para usuario)
-exports.singupUser = async (req, res) => {
+//* Exportacion de una signup
+exports.signUp = async (req, res) => {
     try {
-        const { name, accountNumber, password, amount } = req.body;
+        const { name, password } = req.body;
 
-        //* Numero de cuenta aleatorio
-        const randomnxc = await User.randomClue({ accountNumber });
+        //* Sintaxis de numeros aleatorios
+        const accountNumber = randomClue(); //? Constante para el numero de cuenta aleatorio
 
-        //* Creacion de nombre, contraseña, numero de cuenta, monto 
-        const user = await User.create({ name, accountNumber: randomnxc, password, amount });
+        //* Sintaxis para encriptar contraseña
+        const salt = await bcrypt.genSalt(10)
+        const cluePassword = await bcrypt.hash(password, salt);
 
+        //* Sintaxis para crear usuario
+        const user = await User.create({ name, password: cluePassword, accountNumber });
+
+        //* Sintaxis para generar token
+        const token = await generateJWT(user.id);
+
+        //* Retornar una respuestas de estado 201
         return res.status(201).json({
+            status: 'sucess',
+            message: 'User created successfully...🥳',
+            token,
+            user,
+        });
+        //* Captura de error  
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            status: 'fail',
+            message: 'Internal server error...😫',
+            error,
+        });
+    }
+};
+
+exports.login = async (req, res) => {
+    try {
+        const { user } = req.body;
+
+        if (!(await bcrypt.compare(password, user.password))) {
+            return message("Incorrect accountNumber or password");
+        }
+
+        const token = generate.JWT(user.di);
+
+        res.status(200).json({
             status: 'success',
-            message: 'Bank account created successfully...🥳',
+            token,
             user,
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             status: 'fail',
-            message: 'Internal server error😫',
+            message: 'Internal server error...😫',
             error,
         });
     }
 };
-
-//*  Login (Inicio de secion, numero de cuenta para usuario)
-exports.loginUser = async (req, res) => {
-    try {
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            status: 'fail',
-            message: 'Internal server error😫',
-            error,
-        });
-    }
-};
-
-//* History (Historial de transferencias hechas por el usuario)
-exports.historyUser = async (req, res) => {
-    try {
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            status: 'fail',
-            message: 'Internal server error😫',
-            error,
-        });
-    }
-};
-
-        //* Monto de 1.000
-        //const diners = await User({
-        //where: {
-        //amount: '1000',
-        //},
-        //});

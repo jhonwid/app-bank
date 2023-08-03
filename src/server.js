@@ -1,4 +1,4 @@
-require("dotenv").config(); //? Configuracion de varibles de entorno .env
+require("dotenv").config(); //? Configuracion de varibles de entorno ENV
 
 //* Importaciones
 const app = require("./app");
@@ -14,7 +14,7 @@ db.sync({ force: false }) //? Sincronizacion con la base de datos
     .catch((err) => console.log(err));
 
 //* Puerto configuracion con DotEnv
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3200;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}...🤙`);
 });

@@ -9,7 +9,7 @@ const Transfer = db.define("transfers", {
         type: DataTypes.INTEGER,
     },
     amount: { //! CANTIDAD
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     senderUserld: { //! ID USUARIO REMITENTE

@@ -13,9 +13,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-}
+if (process.env.NODE_ENV === 'development') { //? Configuracion de varibles de entorno ENV
+    app.use(morgan('dev')); //? Configuracion de varibles de entorno ENV
+}; //? Configuracion de varibles de entorno ENV
 
 //* Rutas 
 app.use('/api/v1/users', userRoute);

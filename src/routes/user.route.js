@@ -1,21 +1,15 @@
-//* 1. Importacion express
 const express = require('express');
 
-//* 2. Importacion
-const userController = require('../controllers/user.contoller');
+//* 2. Importaciones 
+const userController = require('../controllers/user.contoller'); //? Controller
+const userMiddleware = require('./../middlewares/user.middleware'); //? Middleware
 
 const router = express.Router();
 
-//* Rutas de las funciones asincronas
-router
-    .route('/')
-    // .post(userController.findAllUsers)
-    .post(userController.singupUser)
-    .post(userController.loginUser);
+//* Rutas de los controladores
+router.post('/signup', userController.signUp);
 
-router
-    .route('/:id')
-    .get(userController.historyUser)
+router.post('/login', userMiddleware.valideUser, userController.login);
 
 //* Exportaciones
 module.exports = router;

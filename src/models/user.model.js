@@ -14,7 +14,7 @@ const User = db.define("users", {
         unique: true,
     },
     accountNumber: { //! NUMERO DE CUENTA
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT, //? Entero mas grande
         allowNull: false,
     },
     password: { //! CONTRASEÑA
@@ -22,8 +22,9 @@ const User = db.define("users", {
         allowNull: false,
     },
     amount: { //! CANTIDAD
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
+        defaultValue: 1000,
     },
     status: { //! ESTADO
         type: DataTypes.BOOLEAN,
